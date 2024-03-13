@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: classification-model
+spec:
+  selector:
+    matchLabels:
+      app: classification-model
+  template:
+    metadata:
+      labels:
+        app: classification-model
+    spec:
+      containers:
+        - name: classification-model
+          image: us-central1-docker.pkg.dev/ikame-gem-ai-research/sd-repo/aift-model-review-multi:v1.0.2
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              memory: "1024Mi"
+              cpu: "500m"
+            limits:
+              memory: "2048Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: classification-model-service
+spec:
+  selector:
+    app: classification-model
+  ports:
+    - port: 5000
+      targetPort: 5000
+  type: ClusterIP

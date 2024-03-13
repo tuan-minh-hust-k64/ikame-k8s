@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bolt-server
+spec:
+  selector:
+    matchLabels:
+      app: bolt-server
+  template:
+    metadata:
+      labels:
+        app: bolt-server
+    spec:
+      containers:
+        - name: bolt-server
+          imagePullPolicy: Always
+          image: us-central1-docker.pkg.dev/ikame-gem-ai-research/ikame/igemini-bot:v1.0.1
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bolt-server-service
+spec:
+  selector:
+    app: bolt-server
+  ports:
+    - port: 3000
+      targetPort: 3000

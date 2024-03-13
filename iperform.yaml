@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iperform-server
+spec:
+  selector:
+    matchLabels:
+      app: iperform-server
+  template:
+    metadata:
+      labels:
+        app: iperform-server
+    spec:
+      containers:
+        - name: iperform-server
+          image: tuanminh009/iperform-server:dev-1.0.0
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://flowise-postgresql:5432/flowise?currentSchema=iperform&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
+            - name: SPRING_DATASOURCE_USERNAME
+              value: flowise
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: flowise
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8184
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iperform-server
+spec:
+  selector:
+    app: iperform-server
+  ports:
+    - port: 8184
+      targetPort: 8184
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iperform-client
+spec:
+  selector:
+    matchLabels:
+      app: iperform-client
+  template:
+    metadata:
+      labels:
+        app: iperform-client
+    spec:
+      containers:
+        - name: iperform-client
+          image: tuanminh009/iperform-client:dev-1.0.1
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iperform-client
+spec:
+  selector:
+    app: iperform-client
+  ports:
+    - port: 80
+      targetPort: 80
