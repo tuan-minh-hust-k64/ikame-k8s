@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-callback
+spec:
+  selector:
+    matchLabels:
+      app: server-callback
+  template:
+    metadata:
+      labels:
+        app: server-callback
+    spec:
+      containers:
+        - name: server-callback
+          image: us-central1-docker.pkg.dev/ikame-gem-ai-research/ikame/ikame-server-callback:v1.0.4
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: 512Mi
+              cpu: 500m
+            limits:
+              memory: 512Mi
+              cpu: 500m
+          ports:
+            - containerPort: 8181
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-callback
+spec:
+  selector:
+    app: server-callback
+  ports:
+    - port: 8181
+      targetPort: 8181
