@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: iresource-app-client-staging
-        image: quyennv0602/iresource-client:dev-1.3.0
+        image: quyennv0602/iresource-client:dev-1.2.2
         imagePullPolicy: Always
         resources:
           requests:
