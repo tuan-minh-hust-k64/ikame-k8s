@@ -1,0 +1,46 @@
+[
+    {
+        "label": "bigquery",
+        "importPath": "google.cloud",
+        "description": "google.cloud",
+        "isExtraImport": true,
+        "detail": "google.cloud",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 5,
+        "importPath": "x",
+        "description": "x",
+        "peekOfCode": "client = bigquery.Client()\nx = {\n  \"latest_params\": [\n    \"geo.country\"                    ,\n    \"device.category\"                ,\n    \"device.mobile_brand_name\"       ,\n    \"device.mobile_model_name\"       ,\n    \"device.operating_system_version\",\n    \"device.language\"\n  ],",
+        "detail": "x",
+        "documentation": {}
+    },
+    {
+        "label": "x",
+        "kind": 5,
+        "importPath": "x",
+        "description": "x",
+        "peekOfCode": "x = {\n  \"latest_params\": [\n    \"geo.country\"                    ,\n    \"device.category\"                ,\n    \"device.mobile_brand_name\"       ,\n    \"device.mobile_model_name\"       ,\n    \"device.operating_system_version\",\n    \"device.language\"\n  ],\n  \"count_params\": [",
+        "detail": "x",
+        "documentation": {}
+    },
+    {
+        "label": "y",
+        "kind": 5,
+        "importPath": "x",
+        "description": "x",
+        "peekOfCode": "y = client.query(\n    query=f\"\"\"\n    update `ikame-ltv-predict.Config.Project_Init`\n    set params_config='{str(json.dumps(x))}'\n    where status=\"INIT\"\n    \"\"\"\n)\nprint(y.job_id)",
+        "detail": "x",
+        "documentation": {}
+    }
+]

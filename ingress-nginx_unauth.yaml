@@ -4,13 +4,14 @@ metadata:
   name: ingress-ai
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 100m
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
 spec:
   ingressClassName: nginx
   rules:
     - host: ai.ikamegroup.com
       http:
         paths:
-          - path: /
+          - path: /api
             pathType: Prefix
             backend:
               service:
@@ -24,24 +25,7 @@ spec:
                 name: bolt-server-service
                 port:
                   number: 3000
-    # - host: iperform-dev.ikameglobal.com
-    #   http:
-    #     paths:
-    #       - path: /
-    #         pathType: Prefix
-    #         backend:
-    #           service:
-    #             name: iperform-client
-    #             port:
-    #               number: 80
-    #       - path: /api
-    #         pathType: Prefix
-    #         backend:
-    #           service:
-    #             name: server-callback
-    #             port:
-    #               number: 8181
-    - host: ideas-dev.ikameglobal.com
+    - host: ideas.ikameglobal.com
       http:
         paths:
           - path: /
@@ -56,5 +40,22 @@ spec:
             backend:
               service:
                 name: ideas-app-server
+                port:
+                  number: 8080
+    - host: iresource-dev.ikameglobal.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: iresource-app-client
+                port:
+                  number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: iresource-app-server
                 port:
                   number: 8080

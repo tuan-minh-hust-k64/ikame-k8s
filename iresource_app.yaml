@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ideas-app-client
+  name: iresource-app-client
 spec:
   selector:
     matchLabels:
-      app: ideas-app-client
+      app: iresource-app-client
   template:
     metadata:
       labels:
-        app: ideas-app-client
+        app: iresource-app-client
     spec:
       containers:
-      - name: ideas-app-client
-        image: quyennv0602/ideas-client:dev-3.4.3
+      - name: iresource-app-client
+        image: quyennv0602/iresource-client:dev-1.3.0
         imagePullPolicy: Always
         resources:
           requests:
@@ -28,10 +28,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ideas-app-client
+  name: iresource-app-client
 spec:
   selector:
-    app: ideas-app-client
+    app: iresource-app-client
   ports:
   - port: 80  
     targetPort: 80
@@ -39,37 +39,27 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ideas-app-server
+  name: iresource-app-server
 spec:
   selector:
     matchLabels:
-      app: ideas-app-server
+      app: iresource-app-server
   template:
     metadata:
       labels:
-        app: ideas-app-server
+        app: iresource-app-server
     spec:
       containers:
-      - name: ideas-app-server
-        image: quyennv0602/ideas-server:dev-3.4.3
+      - name: iresource-app-server
+        image: quyennv0602/iresource-server:dev-1.0.5
         imagePullPolicy: Always
         env:
           - name: SPRING_DATASOURCE_URL
-            value: jdbc:postgresql://postgres-postgresql:5432/postgres?currentSchema=ideas&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
+            value: jdbc:postgresql://postgres-postgresql:5432/postgres?currentSchema=iresource&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
           - name: SPRING_DATASOURCE_USERNAME
             value: postgres
           - name: SPRING_DATASOURCE_PASSWORD
             value: admin
-          - name: SPRING_DATA_REDIS_HOST
-            value: redis-app
-          - name: SPRING_DATA_REDIS_PORT
-            value: "6379"
-          - name: SPRING_DATA_REDIS_DATABASE
-            value: "0"
-          - name: SPRING_DATA_REDIS_PASSWORD
-            value: quyennv
-          - name: SPRING_DATA_REDIS_TIMEOUT
-            value: "60000"
         resources:
           requests:
             memory: "512Mi"
@@ -83,10 +73,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ideas-app-server
+  name: iresource-app-server
 spec:
   selector:
-    app: ideas-app-server
+    app: iresource-app-server
   ports:
   - port: 8080
     targetPort: 8080
