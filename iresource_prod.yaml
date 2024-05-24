@@ -1,20 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: iresource-app-client-staging
-  namespace: staging
+  name: iresource-prod-client
 spec:
   selector:
     matchLabels:
-      app: iresource-app-client-staging
+      app: iresource-prod-client
   template:
     metadata:
       labels:
-        app: iresource-app-client-staging
+        app: iresource-prod-client
     spec:
       containers:
-      - name: iresource-app-client-staging
-        image: quyennv0602/iresource-client:dev-1.2.2
+      - name: iresource-prod-client
+        image: quyennv0602/iresource-client:prod-1.3.0
         imagePullPolicy: Always
         resources:
           requests:
@@ -29,11 +28,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: iresource-app-client-staging
-  namespace: staging
+  name: iresource-prod-client
 spec:
   selector:
-    app: iresource-app-client-staging
+    app: iresource-prod-client
   ports:
   - port: 80  
     targetPort: 80
@@ -41,46 +39,41 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: iresource-app-server-staging
-  namespace: staging
+  name: iresource-prod-server
 spec:
   selector:
     matchLabels:
-      app: iresource-app-server-staging
+      app: iresource-prod-server
   template:
     metadata:
       labels:
-        app: iresource-app-server-staging
+        app: iresource-prod-server
     spec:
       containers:
-      - name: iresource-app-server-staging
-        image: quyennv0602/iresource-server:dev-1.0.5
+      - name: iresource-prod-server
+        image: quyennv0602/iresource-server:prod-1.3.0
         imagePullPolicy: Always
         env:
           - name: SPRING_DATASOURCE_URL
-            value: jdbc:postgresql://postgres-postgresql:5432/postgres?currentSchema=iresource&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
+            value: jdbc:postgresql://postgresql:5432/postgres?currentSchema=iresource_prod&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
           - name: SPRING_DATASOURCE_USERNAME
             value: postgres
           - name: SPRING_DATASOURCE_PASSWORD
             value: admin
         resources:
-          requests:
-            memory: "512Mi"
-            cpu: "500m"
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
+            limits:
+              memory: "1024Mi"
+              cpu: "2000m"
         ports:
         - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: iresource-app-server-staging
-  namespace: staging
+  name: iresource-prod-server
 spec:
   selector:
-    app: iresource-app-server-staging
+    app: iresource-prod-server
   ports:
   - port: 8080
     targetPort: 8080

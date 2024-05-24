@@ -55,7 +55,7 @@ spec:
         imagePullPolicy: Always
         env:
           - name: SPRING_DATASOURCE_URL
-            value: jdbc:postgresql://postgres-postgresql:5432/postgres?currentSchema=ideas&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
+            value: jdbc:postgresql://postgresql:5432/postgres?currentSchema=ideas&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
           - name: SPRING_DATASOURCE_USERNAME
             value: postgres
           - name: SPRING_DATASOURCE_PASSWORD

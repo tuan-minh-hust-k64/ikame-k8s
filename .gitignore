@@ -1,1 +1,3 @@
 ./credentials
+credentials/cloud_sql.json
+secrets/iresource_secret.yaml

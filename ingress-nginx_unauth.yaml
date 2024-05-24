@@ -59,3 +59,20 @@ spec:
                 name: iresource-app-server
                 port:
                   number: 8080
+    - host: iresource.ikameglobal.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: iresource-prod-client
+                port:
+                  number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: iresource-prod-server
+                port:
+                  number: 8080

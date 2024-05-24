@@ -13,11 +13,11 @@ spec:
     spec:
       containers:
       - name: ai-server
-        image: us-central1-docker.pkg.dev/ikame-gem-ai-research/ikame/ai-server:v1.0.3
+        image: us-central1-docker.pkg.dev/ikame-gem-ai-research/ikame/ai-server:v1.0.7
         resources:
           limits:
-            memory: "512Mi"
-            cpu: "500m"
+            memory: "1024Mi"
+            cpu: "1000m"
         ports:
         - containerPort: 8184
 ---
